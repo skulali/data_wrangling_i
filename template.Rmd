@@ -22,9 +22,49 @@ import the same dataset using an absolute path
 
 ```{r, eval = FALSE}
 litters_df_abs = 
-  read_csv("~/Fall 2023/Data Science/P8105/data_wrangling_idata/FAS_litters.csv")
-
-litters_df_abs = 
-  janitor::clean_names(litters_df)
+  read_csv("C:/Users/Kulal/OneDrive - Columbia University Irving Medical Center/Fall 2023/Data Science/P8105/data_wrangling_i/data/FAS_litters.csv")
 ```
+
+import the `FAS_pups.csv' using a relative path
+
+```{r}
+pups_df = 
+  read_csv("data/FAS_pups.csv")
+
+pups_df = 
+  janitor::clean_names(pups_df)
+```
+
+import the same dataset using an absolute path
+
+```{r, eval = FALSE}
+pups_df_abs = 
+  read_csv("C:/Users/Kulal/OneDrive - Columbia University Irving Medical Center/Fall 2023/Data Science/P8105/data_wrangling_i/data/FAS_pups.csv")
+```
+
+# Look at data
+
+```{r}
+litters_df
+
+head(litters_df)
+
+tail(litters_df)
+```
+
+you can use `view`
+
+```{r, eval = FALSE}
+view(litters_df)
+```
+
+Look at a data summary
+
+```{r}
+str(litters_df)
+
+skimr::skim(litters_df)
+```
+
+
 
