@@ -1,0 +1,31 @@
+---
+title: "Data Manipulation"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(haven)
+```
+
+
+let's import the `FAS_litters.csv` csv using a relative path
+
+```{r}
+litters_df = 
+  read_csv("data/FAS_litters.csv")
+
+litters_df = 
+  janitor::clean_names(litters_df)
+```
+
+import the `FAS_pups.csv' using a relative path
+
+```{r}
+pups_df = 
+  read_csv("data/FAS_pups.csv")
+
+pups_df = 
+  janitor::clean_names(pups_df)
+```
