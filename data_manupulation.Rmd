@@ -9,8 +9,7 @@ library(readxl)
 library(haven)
 ```
 
-
-let's import the `FAS_litters.csv` csv using a relative path
+import the `FAS_litters.csv` and `FAS_pups.csv` 
 
 ```{r}
 litters_df = 
@@ -18,14 +17,56 @@ litters_df =
 
 litters_df = 
   janitor::clean_names(litters_df)
-```
 
-import the `FAS_pups.csv' using a relative path
-
-```{r}
 pups_df = 
   read_csv("data/FAS_pups.csv")
 
 pups_df = 
   janitor::clean_names(pups_df)
 ```
+
+select is used to select columns
+
+```{r}
+select(litters_df, group, litter_number, gd0_weight)
+
+select(litters_df, gd0_weight, group)
+
+select(litters_df, group, gd0_weight:gd_of_birth)
+
+select(litters_df, group, starts_with("pups"))
+
+select(litters_df, -litter_number)
+
+select(litters_df, -starts_with("gd"))
+
+# rename a variable
+select(litters_df, group, litter_id = litter_number)
+
+# rename a variable and keep everything else
+select(litters_df, group, litter_id = litter_number, everything())
+
+select(litters_df, gd0_weight, everything())
+```
+
+```{r}
+rename(litters_df, litter_id = litter_number)
+
+relocate(litters_df, litter_number)
+```
+
+`select` vs `pull`
+
+```{r}
+select(litters_df, group)
+
+# get something out of a data frame
+pull(litters_df, group)
+```
+
+learning assessment
+
+```{r}
+select(pups_df, litter_number, sex, pd_ears)
+```
+
