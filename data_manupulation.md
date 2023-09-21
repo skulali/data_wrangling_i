@@ -652,3 +652,18 @@ arrange(litters_df, group, gd0_weight)
     ## 10 Con8  #3/83/3-3             NA          NA            20               9
     ## # ℹ 39 more rows
     ## # ℹ 2 more variables: pups_dead_birth <dbl>, pups_survive <dbl>
+
+## pipes
+
+``` r
+litters_df =
+  read.csv("data/FAS_litters.csv") |>
+  janitor::clean_names() |> 
+  select(-starts_with("pups")) |> 
+  mutate(
+    group = str_to_lower(group),
+    wt_gain = gd18_weight - gd0_weight,
+  ) |> 
+  drop_na(wt_gain) |> 
+  arrange(group, wt_gain)
+```
