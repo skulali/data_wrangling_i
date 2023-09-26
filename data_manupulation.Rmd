@@ -9,7 +9,7 @@ library(readxl)
 library(haven)
 ```
 
-import the `FAS_litters.csv` and `FAS_pups.csv` 
+import the `FAS_litters.csv` and `FAS_pups.csv`
 
 ```{r}
 litters_df = 
@@ -70,7 +70,6 @@ learning assessment
 select(pups_df, litter_number, sex, pd_ears)
 ```
 
-
 ## `filter`
 
 get rid of rows using `filter()`
@@ -102,7 +101,6 @@ drop_na(litters_df)
 drop_na(litters_df, gd0_weight)
 ```
 
-
 ## `mutate`
 
 this is used to add or change variables
@@ -119,14 +117,12 @@ mutate(
 )
 ```
 
-
 ## `arrange`
 
 ```{r}
 arrange(litters_df, gd0_weight)
 arrange(litters_df, group, gd0_weight)
 ```
-
 
 ## pipes
 
@@ -142,4 +138,3 @@ litters_df =
   drop_na(wt_gain) |> 
   arrange(group, wt_gain)
 ```
-
