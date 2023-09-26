@@ -1,139 +1,26 @@
 ---
-title: "Simple document"
+title: "Tidy data"
 output: github_document
 ---
 
 ```{r}
 library(tidyverse)
-library(readxl)
-library(haven)
 ```
 
-
-let's import the `FAS_litters.csv` csv using a relative path
-
-```{r}
-litters_df = 
-  read_csv("data/FAS_litters.csv")
-
-litters_df = 
-  janitor::clean_names(litters_df)
-```
-
-import the same dataset using an absolute path
-
-```{r, eval = FALSE}
-litters_df_abs = 
-  read_csv("C:/Users/Kulal/OneDrive - Columbia University Irving Medical Center/Fall 2023/Data Science/P8105/data_wrangling_i/data/FAS_litters.csv")
-```
-
-import the `FAS_pups.csv' using a relative path
-
-```{r}
-pups_df = 
-  read_csv("data/FAS_pups.csv")
-
-pups_df = 
-  janitor::clean_names(pups_df)
-```
-
-import the same dataset using an absolute path
-
-```{r, eval = FALSE}
-pups_df_abs = 
-  read_csv("C:/Users/Kulal/OneDrive - Columbia University Irving Medical Center/Fall 2023/Data Science/P8105/data_wrangling_i/data/FAS_pups.csv")
-```
-
-# Look at data
-
-```{r}
-litters_df
-
-head(litters_df)
-
-tail(litters_df)
-```
-
-you can use `view`
-
-```{r, eval = FALSE}
-view(litters_df)
-```
-
-look at a data summary
-
-```{r}
-str(litters_df)
-
-skimr::skim(litters_df)
-```
-
-## Options in `read_*`
-
-```{r}
-litters_df =
-  read_csv("data/FAS_litters.csv",
-  skip = 10, col_names = FALSE)
-```
-
-look at NA values
-
-```{r}
-litters_df =
-  read_csv("data/FAS_litters.csv",
-  na = c("NA",19, "."))
-```
-
-column types
-
-```{r}
-litters_df =
-  read_csv(
-    "data/FAS_litters.csv",
-    col_types = 
-      cols(
-        `GD0 weight` = col_factor()
-      ))
-```
-
-## Other file types
-
-import a xlsx file first
-
-```{r}
-mlb_df = 
-  read_excel("data/mlb11.xlsx")
-```
-
-import a sas file
+## PULSE data
 
 ```{r}
 pulse_df = 
-  read_sas("data/public_pulse_data.sas7bdat")
-```
-
-## Base R ...
-
-don't do this
-
-```{r, eval = FALSE}
-litters_df =
-  read.csv("data/FAS_litters.csv")
-
-litters_df$Gr
-```
-
-## Export data
-
-we have code that "cleans"
-
-```{r}
-litters_df_cleaned =
-  read_csv("data/FAS_litters.csv")
-
-litters_df_cleaned =
-  janitor::clean_names(litters_df_cleaned)
-
-write_csv(litters_df_cleaned, "data/litters_cleaned.csv")
+  haven::read_sas("data/public_pulse_data.sas7bdat") |>
+  janitor::clean_names() |> 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    values_to = "bdi_score",
+    names_prefix = "bdi_score_"
+  ) |> 
+  mutate(
+    visit = replace(visit, visit == "bl","00m")
+  )
 ```
 
